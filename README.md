@@ -36,3 +36,42 @@ To get the four-parameter non-linear limb darkening coefficients:
 
     ./claret_most_limb_darkening 5084 -0.1 4.3 2.0
     [ 0.5989 -0.548   1.3669 -0.5722]
+
+####object-oriented example
+
+To create a limb darkening object within the python environment:
+
+    from limbDarkening.code import claret_most_limb_darkening as cld
+    ldo = cld.LimbDarkening(5084, 4.3, -0.1, 2.0)
+
+To get the four-parameter non-linear limb darkening coefficients:
+
+    ldo.get_ldcs()
+    array([ 0.5989, -0.548 ,  1.3669, -0.5722])
+
+To return the full ATLAS table as a pandas DataFrame:
+
+    lddf = ldo.get_data()
+    lddf.head(3)
+
+And to return the intensity as a function of $\gamma$, the angle between the line of sight and the outward surface normal
+
+    ldfunc = ldo.claret_model(ldo.get_ldcs())
+
+To plot this function over a range of $\gamma$:
+
+    plt.rcParams['font.size']=20.
+    gamma = np.linspace(-np.pi/2., np.pi/2., 1e2)
+    ldfunc = ldo.claret_model(ldo.get_ldcs())
+    intens = ldfunc(gamma)
+    fig, ax = plt.subplots(1, 1)
+    ax.plot(gamma, intens)
+    ax.set_xlabel(r'$\gamma$ [radians]')
+    ax.set_ylabel(r'$I(\mu)/I_0$')
+    ax.set_ylim([0, 1.1])
+    plt.subplots_adjust(left=0.15, right=0.9, top=0.9, bottom=0.2)
+    nbins = 6
+    ax.xaxis.set_major_locator(plt.MaxNLocator(nbins=nbins, prune='both'))
+    ax.yaxis.set_major_locator(plt.MaxNLocator(nbins=nbins, prune='both'))
+
+![Limb Darkening Function](figures/MOST_Limb_Darkening.png)
