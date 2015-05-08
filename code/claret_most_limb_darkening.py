@@ -131,10 +131,6 @@ def claret14_limb_darkening_coeffs(teff, monh, logg, turbvel):
     assert turbvel <= 8.0, 'turbvel should be less than 8.0: {}'.format(turbvel)
     assert turbvel >= 0.0, 'turbvel should be greater than 0.0: {}'.format(turbvel)
 
-    print('input teff: {}'.format(teff))
-    print('input monh: {}'.format(monh))
-    print('input logg: {}'.format(logg))
-    print('input turbvel: {}'.format(turbvel))
     ldo = LimbDarkening(teff, monh, logg, turbvel)
     print(ldo.get_ldcs())
 
