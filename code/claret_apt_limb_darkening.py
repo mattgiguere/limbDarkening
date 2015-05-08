@@ -46,6 +46,15 @@ class LimbDarkening:
 
     :param logg:
         The log of the surface gravity
+
+    :param passband:
+        The passband of interest. Acceptable values are
+        ['Kp', 'C', 'S1', 'S2', 'S3', 'S4',
+         'u', 'v', 'b', 'y',
+         'U', 'B', 'V', 'R', 'I',
+         'J', 'H', 'K',
+         "u'", "g'", "r'", "i'", "z'",
+         'J2', 'H2', 'Ks']
     """
 
     def __init__(self, teff, logg, passband):
