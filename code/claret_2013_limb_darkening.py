@@ -98,12 +98,15 @@ class LimbDarkening:
         return ldcs
 
     def claret_model(self, ldcs):
+        print('ldcs: {}'.format(ldcs))
+
         def limb_darkening_function(theta):
             mu = np.cos(theta)
-            limbdark = 1. - ldcs[0] * (1. - mu**0.5)
-            -  ldcs[1] * (1. - mu**1.0)
-            -  ldcs[2] * (1. - mu**1.5)
-            -  ldcs[3] * (1. - mu**2.0)
+            limbdark = 1. - \
+                ldcs[0] * (1. - mu**0.5) - \
+                ldcs[1] * (1. - mu**1.0) - \
+                ldcs[2] * (1. - mu**1.5) - \
+                ldcs[3] * (1. - mu**2.0)
             return limbdark
         return limb_darkening_function
 
