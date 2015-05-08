@@ -48,7 +48,7 @@ class LimbDarkening:
 
     """
 
-    def __init__(self, teff, logg, passband):
+    def __init__(self, teff, logg):
         self.fn = ld_dir+'data/Claret2013_PHOENIX_Nonlinear.tsv'
 
         self.teff = teff
@@ -91,15 +91,18 @@ class LimbDarkening:
 
         ldcsb = self.get_ldcs('b')
         ldcsy = self.get_ldcs('y')
+        print('b band vals: {}'.format(ldcsb))
+        print('y band vals: {}'.format(ldcsy))
 
         def limb_darkening_function(theta):
             mu = np.cos(theta)
-            limbdark = 1. \
-                - (ldcsb[0] * (1. - mu**0.5) + ldcsy[0] * (1. - mu**0.5))/2. \
-                - (ldcsb[1] * (1. - mu**1.0) + ldcsy[1] * (1. - mu**1.0))/2. \
-                - (ldcsb[2] * (1. - mu**1.5) + ldcsy[2] * (1. - mu**1.5))/2. \
-                - (ldcsb[3] * (1. - mu**2.0) + ldcsy[3] * (1. - mu**2.0))/2.
+            limbdark = 1. - 0.5 * \
+                ((ldcsb[0] + ldcsy[0]) * (1. - mu**0.5) +
+                 (ldcsb[1] + ldcsy[1]) * (1. - mu**1.0) +
+                 (ldcsb[2] + ldcsy[2]) * (1. - mu**1.5) +
+                 (ldcsb[3] + ldcsy[3]) * (1. - mu**2.0))
             return limbdark
+
         return limb_darkening_function
 
 
