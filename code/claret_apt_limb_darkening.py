@@ -48,13 +48,12 @@ class LimbDarkening:
         The log of the surface gravity
     """
 
-    def __init__(self, teff, logg, monh, turbvel):
-        self.fn = ld_dir+'data/Claret2014MOST_ATLAS.tsv'
+    def __init__(self, teff, logg, passband):
+        self.fn = ld_dir+'data/Claret2013_PHOENIX_Nonlinear.tsv'
 
         self.teff = teff
-        self.monh = monh
         self.logg = logg
-        self.turbvel = turbvel
+        self.pb = passband
         self.round_values()
 
     def round_values(self):
@@ -63,7 +62,6 @@ class LimbDarkening:
         To round the input parameters for lookup in the Claret table.
         """
         self.rteff = np.round(self.teff/250) * 250
-        self.rmonh = np.round(self.monh/0.1) * 0.1
         self.rlogg = np.round(self.logg/0.5) * 0.5
 
     def get_data(self):
@@ -71,7 +69,7 @@ class LimbDarkening:
         PURPOSE:
         Restore the data from file and return them as a pandas DataFrame.
         """
-        return pd.read_csv(self.fn, sep='\s*\s*', engine='python', header=70)[2:]
+        return pd.read_csv(self.fn, sep='\s*\s*', engine='python', header=47)[2:]
 
     def get_ldcs(self):
         """
@@ -86,7 +84,7 @@ class LimbDarkening:
         for cNm in coeffNames:
             ldcs[idx] = lddf[((lddf['Teff'] == '{:n}'.format(self.rteff)) &
                              (lddf['logg'] == '{:.2f}'.format(self.rlogg)) &
-                             (lddf['logZ'] == '{:.1f}'.format(self.rmonh)))][cNm].values[0]
+                             (lddf['Filt'] == self.pb))][cNm].values[0]
             idx += 1
         return ldcs
 
@@ -130,10 +128,10 @@ def claret13_limb_darkening_coeffs(teff, logg, passband):
            "u'", "g'", "r'", "i'", "z'",
            'J2', 'H2', 'Ks']
 
-    assert teff >= 3000, 'teff should be greater than 3000: {}'.format(teff)
-    assert teff <= 50000, 'teff should be less than 50000: {}'.format(teff)
-    assert logg >= 0.0, 'logg should be greater than 0.0: {}'.format(logg)
-    assert logg <= 5.0, 'logg should be less than 5.0: {}'.format(logg)
+    assert teff >= 5000, 'teff should be greater than 3000: {}'.format(teff)
+    assert teff <= 10000, 'teff should be less than 50000: {}'.format(teff)
+    assert logg >= 3.0, 'logg should be greater than 0.0: {}'.format(logg)
+    assert logg <= 5.5, 'logg should be less than 5.0: {}'.format(logg)
     assert passband in pbs, 'that is not an acceptable passband value'
 
     ldo = LimbDarkening(teff, logg, passband)
