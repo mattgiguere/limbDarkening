@@ -1,9 +1,13 @@
 # limbDarkening
-Create limb darkening models using the Claret (2000), Claret et al. (2013), or Claret et al. (2014) models
+This repository contains code to create limb darkening models in Python. This code is based on the work of Claret (2000), Claret et al. (2013), or Claret et al. (2014). If you use this, be sure to cite the relevant source(s):
+
+- [Claret (2000) A&A, 363, 1081C](http://adsabs.harvard.edu/abs/2000A%26A...363.1081C)
+- [Claret et al. (2013) A&A, 552A, 16C](http://adsabs.harvard.edu/abs/2013A%26A...552A..16C)
+- [Claret et al. (2014) A&A, 567A, 3C](http://adsabs.harvard.edu/abs/2014A%26A...567A...3C)
 
 # code
 
-All code is contained within the `code` subdirectory. Below is a description of the files in that directory, and how to use them:
+All code is contained within the `code` subdirectory. Below is a description of the files within that directory, and short examples of how to use them:
 
 ##claret_most_limb_darkening.py
 
