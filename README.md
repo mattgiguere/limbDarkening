@@ -108,7 +108,7 @@ optional arguments:
   -h, --help  show this help message and exit
 ```
 
-To get the coefficients for a 5084 K star with a logg of 4.3 observed in the Stromgren b band:
+To get the coefficients for a 5084 K star with a logg of 4.3 observed in the b band:
 
     ./claret_2013_limb_darkening.py 5084 4.3 b
     [ 0.85365 -1.38005  2.40726 -0.90518]
@@ -132,11 +132,11 @@ ldfunc = ldo.claret_model(ldo.get_ldcs())
 
 #now make a plot:
 gamma = np.linspace(-np.pi/2., np.pi/2., 1e2)
-plt.plot(gamma, ldfunc_b(gamma), label='Claret Stromgren b')
+plt.plot(gamma, ldfunc_b(gamma), label='Claret b-band')
 plt.legend(loc='lower center')
 plt.xlabel(r'$\gamma$ [radians]')
 plt.ylabel(r'$I[\mu]/I_0$')
 
 ```
 
-![Claret et al. (2013) Stromgren b](figures/Claret_2013_Stromgren_b.png)
+![Claret et al. (2013) b-band](figures/Claret_2013_b.png)
