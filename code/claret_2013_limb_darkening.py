@@ -98,7 +98,6 @@ class LimbDarkening:
         return ldcs
 
     def claret_model(self, ldcs):
-        print('ldcs: {}'.format(ldcs))
 
         def limb_darkening_function(theta):
             mu = np.cos(theta)
