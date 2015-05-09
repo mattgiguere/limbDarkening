@@ -91,8 +91,6 @@ class LimbDarkening:
 
         ldcsb = self.get_ldcs('b')
         ldcsy = self.get_ldcs('y')
-        print('b band vals: {}'.format(ldcsb))
-        print('y band vals: {}'.format(ldcsy))
 
         def limb_darkening_function(theta):
             mu = np.cos(theta)
