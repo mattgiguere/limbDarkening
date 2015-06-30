@@ -70,27 +70,35 @@ class LimbDarkening:
         """
         return pd.read_csv(self.fn, sep='\s*\s*', engine='python', header=47)[2:]
 
-    def get_ldcs(self, passband):
+    def get_ldcs(self, passband, epsEri=False):
         """
         PURPOSE:
         This function will extract and return the limb darkening coefficients
         from the Claret table.
         """
-        ldcs = np.zeros(4)
-        coeffNames = ['a1', 'a2', 'a3', 'a4']
-        idx = 0
-        lddf = self.get_data()
-        for cNm in coeffNames:
-            ldcs[idx] = lddf[((lddf['Teff'] == '{:n}'.format(self.rteff)) &
-                             (lddf['logg'] == '{:.2f}'.format(self.rlogg)) &
-                             (lddf['Filt'] == passband))][cNm].values[0]
-            idx += 1
+        if epsEri:
+            if passband == 'b':
+                ldcs = np.array([0.85365, -1.38005,  2.40726, -0.90518])
+            if passband == 'y':
+                ldcs = np.array([0.79403, -0.90447,  1.61496, -0.60043])
+        else:
+            ldcs = np.zeros(4)
+            coeffNames = ['a1', 'a2', 'a3', 'a4']
+            idx = 0
+            lddf = self.get_data()
+            for cNm in coeffNames:
+                ldcs[idx] = lddf[((lddf['Teff'] == '{:n}'.format(self.rteff)) &
+                                 (lddf['logg'] == '{:.2f}'.format(self.rlogg)) &
+                                 (lddf['Filt'] == passband))][cNm].values[0]
+                idx += 1
         return ldcs
 
-    def claret_model(self):
+    def claret_model(self, epsEri=False):
 
-        ldcsb = self.get_ldcs('b')
-        ldcsy = self.get_ldcs('y')
+        ldcsb = self.get_ldcs('b', epsEri=epsEri)
+        print('b band ldcs: {}'.format(ldcsb))
+        ldcsy = self.get_ldcs('y', epsEri=epsEri)
+        print('y band ldcs: {}'.format(ldcsy))
 
         def limb_darkening_function(theta):
             mu = np.cos(theta)
