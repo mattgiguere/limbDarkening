@@ -96,9 +96,9 @@ class LimbDarkening:
     def claret_model(self, epsEri=False):
 
         ldcsb = self.get_ldcs('b', epsEri=epsEri)
-        print('b band ldcs: {}'.format(ldcsb))
+        # print('b band ldcs: {}'.format(ldcsb))
         ldcsy = self.get_ldcs('y', epsEri=epsEri)
-        print('y band ldcs: {}'.format(ldcsy))
+        # print('y band ldcs: {}'.format(ldcsy))
 
         def limb_darkening_function(theta):
             mu = np.cos(theta)
