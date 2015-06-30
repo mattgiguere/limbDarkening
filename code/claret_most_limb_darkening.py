@@ -83,6 +83,9 @@ class LimbDarkening:
         coeffNames = ['a1', 'a2', 'a3', 'a4']
         idx = 0
         lddf = self.get_data()
+
+        print(lddf.columns.values)
+
         for cNm in coeffNames:
             ldcs[idx] = lddf[((lddf['Teff'] == '{:n}'.format(self.rteff)) &
                              (lddf['logg'] == '{:.2f}'.format(self.rlogg)) &
