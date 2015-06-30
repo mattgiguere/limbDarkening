@@ -109,6 +109,18 @@ class LimbDarkening:
             return limbdark
         return limb_darkening_function
 
+    def get_eps_eri_ldcs(self):
+        """
+        PURPOSE:
+        This function returns the 4-parameter limb darkening coefficients for
+        Epsilon Eri as observed with MOST. This method was added because of
+        problems reading the limb darkening coefficients from file when using
+        MPI.
+        """
+
+        ldcs = np.array([ 0.78552, -0.88512,  1.60631, -0.60365])
+        return ldcs
+
 
 def claret13_limb_darkening_coeffs(teff, logg, passband):
     """
